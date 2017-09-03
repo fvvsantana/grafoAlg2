@@ -2,6 +2,7 @@
 #include <string>
 #include <iomanip>
 #include "utils.hpp"
+#include "grafo.hpp"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ int main(){
 
     //note que o tamanho do vetor pessoas[] sera nVertices
 
+    //entrada
     cout << "Insira a entrada:\n";
     try{
 
@@ -31,7 +33,9 @@ int main(){
         throw ba;
     }
 
-
+    //Area de teste:
+    //
+    //************************************
     //imprime matriz de incidencia
     cout << "\nMatriz de incidencia:\n";
     printMatriz(mIncidencia, nVertices, nVertices);
@@ -39,12 +43,17 @@ int main(){
     //imprime vetor de pessoas
     cout << "Vetor de pessoas por cidade:\n";
     printVetor(pessoas, nVertices);
-    
-    //deleta vetor pessoas
-    if(pessoas) delete pessoas;
-    //deleta a matriz de incidencia
-    deletaMatriz(mIncidencia);
-    
+    //************************************
+
+    //inicializa o grafo
+    Grafo grafo(mIncidencia, pessoas, nVertices);
+
+    //imprime saida
+    cout << "Saida:\n";
+    cout << grafo.criterio1() << '\n';
+    cout << grafo.criterio2() << '\n';
+
+    //note que o grafo ja desaloca a matriz em seu destrutor
     return 0;
 }
 

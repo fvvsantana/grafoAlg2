@@ -19,8 +19,12 @@ template<class T>
 //deleta matriz alocada com a funcao alocaMatriz
 template<class T>  
     void deletaMatriz(T**& m){ 
-        if(m)delete[] m[0]; //deleta o bloco maior, do tipo T
-        delete[] m; //deleta o vetor de ponteiros 
+        if(m){
+            if(m[0]) delete[] m[0]; //deleta o bloco maior, do tipo T
+            m[0] = NULL;
+            delete[] m; //deleta o vetor de ponteiros 
+            m = NULL;
+        }
     }
 
 //imprime vetor
