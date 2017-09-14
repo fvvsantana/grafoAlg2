@@ -1,6 +1,6 @@
 #ifndef GRAFO_HPP
 #define GRAFO_HPP
-#define MAXDISTANCE 9999
+#define INFINITY -1
 using namespace std;
 
 typedef float NReal;

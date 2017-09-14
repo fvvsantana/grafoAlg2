@@ -25,31 +25,32 @@ NReal** Grafo::distanceMatrix(){
     NReal **copyM;
     alocaMatriz(copyM,nVertices,nVertices);
 
-    //inicializa todos os caminhos com a distância máxima
-    for ( i = 0 ; i < nVertices ; i++ ){
-        for ( j = 0 ; j < nVertices ; j++ ){
-            copyM[i][j]= MAXDISTANCE;
-        }
-    }
-
-    //Inicializa a cópia da matriz para o altorítmo
+    //Inicializa a cópia da matriz para o algorítmo
     for (j=0;j<nVertices;j++){
             for (k=0;k<nVertices;k++){
                 //Se existe a estrada, atualiza a distância
                 if (mIncidencia[j][k]) copyM[j][k] = mIncidencia[j][k];
-                //Loops são de distância zero
-                if (j==k) copyM[j][k] = 0;
+                //Se for loop distância é zero
+                else if (j==k) copyM[j][k] = 0;
+                //Se não for nenhum dos casos a distância inicial é infinita
+                else copyM[j][k]= INFINITY;
             }
     }
 
-    //Algorítimo Floyd Marshall
+    //Algorítimo Floyd Marshall  O(n³) ='(
     for (i=0;i<nVertices;i++){
         for (j=0;j<nVertices;j++){
             for (k=0;k<nVertices;k++){
+                //Inicializa min1
                 min1 = copyM[j][k];
-                min2 = copyM[j][i]+copyM[i][k];
+                //Inicializa min2
+                if (copyM[j][i]==INFINITY || copyM[i][k]==INFINITY) min2 = INFINITY;
+                else min2 = copyM[j][i]+copyM[i][k];
+
                 //Compara a menor distância e atualiza a matriz
-                min1>min2 ? copyM[j][k]=min2 : copyM[j][k]=min1;
+                if (min1==INFINITY) copyM[j][k] = min2;
+                else if (min2==INFINITY) copyM[j][k] = min1;
+                else min1>min2 ? copyM[j][k]=min2 : copyM[j][k]=min1;
             }
         }
     }
