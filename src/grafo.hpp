@@ -1,9 +1,10 @@
 #ifndef GRAFO_HPP
 #define GRAFO_HPP
-
+#define MAXDISTANCE 9999
 using namespace std;
 
 typedef float NReal;
+
 
 class Grafo{
     private:
@@ -19,7 +20,7 @@ class Grafo{
         ~Grafo();
 
         //peso do caminho minimo entre dois vertices
-        int pesoCaminhoMinimo(int origem, int destino);
+        NReal** distanceMatrix();
 
         //Criterio 1
         int criterio1();
