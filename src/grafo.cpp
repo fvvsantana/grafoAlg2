@@ -74,3 +74,22 @@ int Grafo::criterio2(){
     return 0;
 }
 
+
+
+//------------------------
+//funcoes de teste:
+
+//imprime matriz de caminhos correspondente a matriz de incidencia
+void Grafo::testaMatrizDeCaminhos(){
+    cout << "-------------------\n";
+    cout << "Teste\nMatriz de caminhos:\n";
+    //pega matriz de caminhos
+    NReal** aux = matrizDeCaminhos();
+    //imprime matriz
+    printMatriz(aux, nVertices, nVertices);
+    //deleta matriz
+    deletaMatriz(aux);
+    cout << "-------------------\n";
+}
+
+//------------------------

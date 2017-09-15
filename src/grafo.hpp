@@ -28,6 +28,16 @@ class Grafo{
 
         //Criterio 2
         int criterio2();
+
+
+        //------------------------
+        //funcoes de teste:
+
+        //imprime matriz de caminhos correspondente a matriz de incidencia
+        void testaMatrizDeCaminhos();
+
+
+        //------------------------
 };
 
 
