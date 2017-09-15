@@ -19,8 +19,9 @@ class Grafo{
         //sobreescreve destrutor
         ~Grafo();
 
-        //peso do caminho minimo entre dois vertices
-        NReal** distanceMatrix();
+        /*calcula a matriz de pesos dos caminhos minimos entre os 
+        vertices usando o algoritmo Floyd Marshall*/
+        NReal** matrizDeCaminhos();
 
         //Criterio 1
         int criterio1();

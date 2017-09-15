@@ -16,8 +16,9 @@ Grafo::~Grafo(){
     deletaMatriz(mIncidencia);
 }
 
-//peso do caminho minimo entre dois vertices
-NReal** Grafo::distanceMatrix(){
+        /*calcula a matriz de pesos dos caminhos minimos entre os 
+        vertices usando o algoritmo Floyd Marshall*/
+NReal** Grafo::matrizDeCaminhos(){
     //Coloque seu algoritmo aqui:
     int i,j,k,min1,min2;
 
@@ -72,3 +73,4 @@ int Grafo::criterio2(){
 
     return 0;
 }
+
