@@ -24,7 +24,13 @@ NReal** Grafo::matrizDeCaminhos(){
 
 
     NReal **copyM;
-    alocaMatriz(copyM,nVertices,nVertices);
+    try{
+
+        alocaMatriz(copyM,nVertices,nVertices);
+
+    }catch( std::bad_alloc &ba ){
+        throw ba;
+    }
 
     //Inicializa a cópia da matriz para o algorítmo
     for (j=0;j<nVertices;j++){
