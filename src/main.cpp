@@ -33,22 +33,21 @@ int main(){
         throw ba;
     }
 
-    //Area de teste:
-    //
-    //************************************
-    //imprime matriz de incidencia
-    cout << "\nMatriz de incidencia:\n";
-    printMatriz(mIncidencia, nVertices, nVertices);
-
-    //imprime vetor de pessoas
-    cout << "Vetor de pessoas por cidade:\n";
-    printVetor(pessoas, nVertices);
-
-    //grafo.testaMatrizDeCaminhos();
-    //************************************
-
     //inicializa o grafo
     Grafo grafo(mIncidencia, pessoas, nVertices);
+
+    //Area de testes:
+    //
+    //************************************
+
+    //grafo.printMIncidencia();
+
+    //grafo.printPessoas();
+
+    //grafo.testaMatrizDeCaminhos();
+    
+    //************************************
+
 
     //imprime saida
     cout << "Saida:\n";

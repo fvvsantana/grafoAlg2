@@ -36,6 +36,11 @@ class Grafo{
         //imprime matriz de caminhos correspondente a matriz de incidencia
         void testaMatrizDeCaminhos();
 
+        //imprime a matriz de incidencia
+        void printMIncidencia();
+
+        //imprime a vetor de pessoas por cidade
+        void printPessoas();
 
         //------------------------
 };

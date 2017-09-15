@@ -98,4 +98,20 @@ void Grafo::testaMatrizDeCaminhos(){
     cout << "-------------------\n";
 }
 
+
+//imprime a matriz de incidencia
+void Grafo::printMIncidencia(){
+    cout << "-------------------\n";
+    cout << "Teste\nMatriz de incidencia:\n";
+    printMatriz(mIncidencia, nVertices, nVertices);
+    cout << "-------------------\n";
+}
+
+//imprime a vetor de pessoas por cidade
+void Grafo::printPessoas(){
+    cout << "-------------------\n";
+    cout << "Teste\nVetor de pessoas por cidade:\n";
+    printVetor(pessoas, nVertices);
+    cout << "-------------------\n";
+}
 //------------------------
