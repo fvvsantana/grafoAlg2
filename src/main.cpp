@@ -63,6 +63,7 @@ void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices){
     //numero de estradas
     int nArestas;
     int i, j, k;
+    NReal pesoNovo, pesoAtual;
 
     cin >> nVertices;
     cin >> nArestas;
@@ -93,7 +94,23 @@ void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices){
     for(k=0; k<nArestas; k++){
         cin >> i;
         cin >> j;
-        cin >> mIncidencia[i][j];
+        cin >> pesoNovo;
+
+        pesoAtual = mIncidencia[i][j];
+
+        //se o peso atual ja foi inicializado
+        if(pesoAtual){
+            //compara os dois pesos e coloca o menor peso
+            if(pesoAtual > pesoNovo){
+                mIncidencia[i][j] = pesoNovo;
+                mIncidencia[j][i] = pesoNovo;
+            }
+        //se o peso nao foi inicializada
+        }else{
+            //inicializa o peso
+            mIncidencia[i][j] = pesoNovo;
+            mIncidencia[j][i] = pesoNovo;
+        }
     }
 }
 
