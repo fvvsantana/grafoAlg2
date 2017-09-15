@@ -1,9 +1,10 @@
 #ifndef GRAFO_HPP
 #define GRAFO_HPP
-
+#define INFINITY -1
 using namespace std;
 
 typedef float NReal;
+
 
 class Grafo{
     private:
@@ -18,14 +19,25 @@ class Grafo{
         //sobreescreve destrutor
         ~Grafo();
 
-        //peso do caminho minimo entre dois vertices
-        int pesoCaminhoMinimo(int origem, int destino);
+        /*calcula a matriz de pesos dos caminhos minimos entre os 
+        vertices usando o algoritmo Floyd Marshall*/
+        NReal** matrizDeCaminhos();
 
         //Criterio 1
         int criterio1();
 
         //Criterio 2
         int criterio2();
+
+
+        //------------------------
+        //funcoes de teste:
+
+        //imprime matriz de caminhos correspondente a matriz de incidencia
+        void testaMatrizDeCaminhos();
+
+
+        //------------------------
 };
 
 

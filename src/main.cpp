@@ -43,6 +43,8 @@ int main(){
     //imprime vetor de pessoas
     cout << "Vetor de pessoas por cidade:\n";
     printVetor(pessoas, nVertices);
+
+    //grafo.testaMatrizDeCaminhos();
     //************************************
 
     //inicializa o grafo
