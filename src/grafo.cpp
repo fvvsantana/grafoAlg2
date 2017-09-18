@@ -70,12 +70,12 @@ NReal** Grafo::matrizDeCaminhos(){
 int Grafo::criterio1(){
     
     //Calcula e armazena a matriz de caminhos
-    NReal** matrizDeCaminhos = Grafo::matrizDeCaminhos();
+    NReal** matrizCaminhos = matrizDeCaminhos();
 
     //Multiplica as distancias pelas numero de pessoas da ciadade de partida
    	for (int linha = 0; linha < nVertices; linha++){
    		for(int coluna = 0; coluna < nVertices; coluna++){
-   			matrizDeCaminhos[linha][coluna] = matrizDeCaminhos[linha][coluna] * this->pessoas[linha];
+   			matrizCaminhos[linha][coluna] = matrizCaminhos[linha][coluna] * pessoas[linha];
    		}
    	}
 
@@ -88,16 +88,16 @@ int Grafo::criterio1(){
 	// somatório de distância a percorrer.
    	for(int coluna = 0; coluna < nVertices; coluna++){
    		for(int linha = 1; linha < nVertices; linha++){
-   			matrizDeCaminhos[0][coluna] = matrizDeCaminhos[0][coluna] + matrizDeCaminhos[linha][coluna];
+   			matrizCaminhos[0][coluna] = matrizCaminhos[0][coluna] + matrizCaminhos[linha][coluna];
    		}
    		//Verifica se é a primeira distância calculada para inicalizar a corretamente
    		// a varirável menorDistância
    		if(coluna == 0){
-   			menorDistancia = matrizDeCaminhos[0][0];
+   			menorDistancia = matrizCaminhos[0][0];
    		}
    		//Verifica se o a distancia calculada é menor que a anterior.
-   		else if(menorDistancia > matrizDeCaminhos[0][coluna]){
-   			menorDistancia = matrizDeCaminhos[0][coluna];
+   		else if(menorDistancia > matrizCaminhos[0][coluna]){
+   			menorDistancia = matrizCaminhos[0][coluna];
    			cidadeMenorDistancia = coluna;
    		}
    	}
