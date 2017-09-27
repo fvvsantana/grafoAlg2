@@ -51,3 +51,14 @@ template<class T>
         }
 
     }
+
+//copia a matriz m2 para uma ja alocada matriz m1
+template<class T, class U>  
+    void copiaMatriz(T** &m1, U** m2, int rows, int cols){
+        int i, j;
+        for (i = 0; i < rows; i++) {
+            for (j = 0; j < cols; j++) {
+                m1[i][j] = m2[i][j];
+            }   
+        }   
+    }   

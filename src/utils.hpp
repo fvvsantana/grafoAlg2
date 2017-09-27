@@ -19,6 +19,9 @@ template<class T>
 template<class T>
     void printMatriz(T** &m, int rows, int cols, int eLength = 4, int eHeight = 2, int ePrecision = 3);
 
+//copia a matriz m2 para uma ja alocada matriz m1
+template<class T, class U>  
+    void copiaMatriz(T** &m1, U** m2, int rows, int cols);
 
 //implementacao dos templates
 #include "utilsTemplates.hpp"
