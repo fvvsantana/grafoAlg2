@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include <iomanip>
 #include "utils.hpp"
 #include "grafo.hpp"
 

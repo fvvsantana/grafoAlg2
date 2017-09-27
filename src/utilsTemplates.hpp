@@ -1,3 +1,5 @@
+#include <iomanip>
+
 //aloca matriz de tipo T
 template<class T>
     void alocaMatriz(T**& m, int linhas, int colunas){
