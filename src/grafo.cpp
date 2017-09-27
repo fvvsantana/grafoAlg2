@@ -73,9 +73,41 @@ NReal** Grafo::matrizDeCaminhos(){
 
 //Criterio 1
 int Grafo::criterio1(){
-    //Coloque seu algoritmo aqui:
+    
+    //Calcula e armazena a matriz de caminhos
+    NReal** matrizCaminhos = matrizDeCaminhos();
 
-    return 0;
+    //Multiplica as distancias pelas numero de pessoas da ciadade de partida
+   	for (int linha = 0; linha < nVertices; linha++){
+   		for(int coluna = 0; coluna < nVertices; coluna++){
+   			matrizCaminhos[linha][coluna] = matrizCaminhos[linha][coluna] * pessoas[linha];
+   		}
+   	}
+
+   	//Variáveis para armazenar a cidade com menor distancia e o valor da distância.
+   	int cidadeMenorDistancia = 0;
+   	NReal menorDistancia = 0;
+   	
+
+	//Percorre a matriz de caminhos procurando a cidade de destino com o menor
+	// somatório de distância a percorrer.
+   	for(int coluna = 0; coluna < nVertices; coluna++){
+   		for(int linha = 1; linha < nVertices; linha++){
+   			matrizCaminhos[0][coluna] = matrizCaminhos[0][coluna] + matrizCaminhos[linha][coluna];
+   		}
+   		//Verifica se é a primeira distância calculada para inicalizar a corretamente
+   		// a varirável menorDistância
+   		if(coluna == 0){
+   			menorDistancia = matrizCaminhos[0][0];
+   		}
+   		//Verifica se o a distancia calculada é menor que a anterior.
+   		else if(menorDistancia > matrizCaminhos[0][coluna]){
+   			menorDistancia = matrizCaminhos[0][coluna];
+   			cidadeMenorDistancia = coluna;
+   		}
+   	}
+
+    return cidadeMenorDistancia;
 }
 
 //Criterio 2:
