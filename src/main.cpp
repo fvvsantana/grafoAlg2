@@ -9,12 +9,12 @@ using namespace std;
 typedef float NReal;
 
 //le entrada, aloca matrizes e as preenche
-void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices);
+void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices);
 
 int main(){
-    //matriz de incidencia do grafo das cidades
-    NReal** mIncidencia;
-    //tamanho da matriz de incidencia
+    //matriz de adjacencia do grafo das cidades
+    NReal** mAdjacencia;
+    //tamanho da matriz de adjacencia
     int nVertices;     
 
     //matriz do numero de pessoas por cidade
@@ -27,20 +27,20 @@ int main(){
     try{
 
         //le entrada e preenche as matrizes
-        leEntrada(mIncidencia, pessoas, nVertices);
+        leEntrada(mAdjacencia, pessoas, nVertices);
 
     }catch( std::bad_alloc &ba ){
         throw ba;
     }
 
     //inicializa o grafo
-    Grafo grafo(mIncidencia, pessoas, nVertices);
+    Grafo grafo(mAdjacencia, pessoas, nVertices);
 
     //Area de testes:
     //
     //************************************
 
-    //grafo.printMIncidencia();
+    //grafo.printMAdjacencia();
 
     //grafo.printPessoas();
 
@@ -59,7 +59,7 @@ int main(){
 }
 
 //le entrada, aloca matrizes e as preenche
-void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices){
+void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
     //numero de estradas
     int nArestas;
     int i, j, k;
@@ -72,8 +72,8 @@ void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices){
         //aloca o vetor pessoas
         pessoas = new int[nVertices];
 
-        //aloca matriz de incidencia
-        alocaMatriz(mIncidencia, nVertices, nVertices);
+        //aloca matriz de adjacencia
+        alocaMatriz(mAdjacencia, nVertices, nVertices);
 
     }catch( std::bad_alloc &ba ){
         throw ba;
@@ -84,32 +84,32 @@ void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices){
         cin >> pessoas[i];
     }
     
-    //preenche a matriz de incidencia com zero em tudo
+    //preenche a matriz de adjacencia com zero em tudo
     for(i=0; i < nVertices * nVertices; i++){
-        mIncidencia[0][i] = 0;
+        mAdjacencia[0][i] = 0;
     }
 
 
-    //preenche a matriz de incidencia
+    //preenche a matriz de adjacencia
     for(k=0; k<nArestas; k++){
         cin >> i;
         cin >> j;
         cin >> pesoNovo;
 
-        pesoAtual = mIncidencia[i][j];
+        pesoAtual = mAdjacencia[i][j];
 
         //se o peso atual ja foi inicializado
         if(pesoAtual){
             //compara os dois pesos e coloca o menor peso
             if(pesoAtual > pesoNovo){
-                mIncidencia[i][j] = pesoNovo;
-                mIncidencia[j][i] = pesoNovo;
+                mAdjacencia[i][j] = pesoNovo;
+                mAdjacencia[j][i] = pesoNovo;
             }
         //se o peso nao foi inicializada
         }else{
             //inicializa o peso
-            mIncidencia[i][j] = pesoNovo;
-            mIncidencia[j][i] = pesoNovo;
+            mAdjacencia[i][j] = pesoNovo;
+            mAdjacencia[j][i] = pesoNovo;
         }
     }
 }
