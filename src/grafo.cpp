@@ -80,7 +80,7 @@ int Grafo::criterio1(){
    	}
 
    	//Variáveis para armazenar a cidade com menor distancia e o valor da distância.
-   	int cidadeMenorDistancia = -1;
+   	int cidadeMenorDistancia = 0;
    	NReal menorDistancia = 0;
    	
 
