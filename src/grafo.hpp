@@ -8,13 +8,13 @@ typedef float NReal;
 
 class Grafo{
     private:
-        NReal** mIncidencia;
+        NReal** mAdjacencia;
         int* pessoas;
         int nVertices;
 
     public:
         //sobrecarga de construtor
-        Grafo(NReal**& mIncidencia, int*& pessoas, int& nVertices);
+        Grafo(NReal**& mAdjacencia, int*& pessoas, int& nVertices);
 
         //sobreescreve destrutor
         ~Grafo();
@@ -33,7 +33,7 @@ class Grafo{
         //------------------------
         //funcoes de teste:
 
-        //imprime matriz de caminhos correspondente a matriz de incidencia
+        //imprime matriz de caminhos correspondente a matriz de adjacencia
         void testaMatrizDeCaminhos();
 
 

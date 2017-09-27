@@ -1,8 +1,8 @@
 #include "utils.hpp"
 
 //sobrecarga de construtor
-Grafo::Grafo(NReal**& mIncidencia, int*& pessoas, int& nVertices){
-    this->mIncidencia = mIncidencia;
+Grafo::Grafo(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
+    this->mAdjacencia = mAdjacencia;
     this->pessoas = pessoas;
     this->nVertices = nVertices;
 }
@@ -12,8 +12,8 @@ Grafo::~Grafo(){
     //deleta vetor pessoas
     if(pessoas) delete pessoas;
     pessoas = NULL;
-    //deleta a matriz de incidencia
-    deletaMatriz(mIncidencia);
+    //deleta a matriz de adjacencia
+    deletaMatriz(mAdjacencia);
 }
 
         /*calcula a matriz de pesos dos caminhos minimos entre os 
@@ -36,7 +36,7 @@ NReal** Grafo::matrizDeCaminhos(){
     for (j=0;j<nVertices;j++){
             for (k=0;k<nVertices;k++){
                 //Se existe a estrada, atualiza a distância
-                if (mIncidencia[j][k]) copyM[j][k] = mIncidencia[j][k];
+                if (mAdjacencia[j][k]) copyM[j][k] = mAdjacencia[j][k];
                 //Se for loop distância é zero
                 else if (j==k) copyM[j][k] = 0;
                 //Se não for nenhum dos casos a distância inicial é infinita
@@ -85,7 +85,7 @@ int Grafo::criterio2(){
 //------------------------
 //funcoes de teste:
 
-//imprime matriz de caminhos correspondente a matriz de incidencia
+//imprime matriz de caminhos correspondente a matriz de adjacencia
 void Grafo::testaMatrizDeCaminhos(){
     cout << "-------------------\n";
     cout << "Teste\nMatriz de caminhos:\n";
