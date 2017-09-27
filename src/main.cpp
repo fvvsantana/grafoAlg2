@@ -9,12 +9,12 @@ using namespace std;
 typedef float NReal;
 
 //le entrada, aloca matrizes e as preenche
-void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices);
+void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices);
 
 int main(){
-    //matriz de adjacencia do grafo das cidades
-    NReal** mAdjacencia;
-    //tamanho da matriz de adjacencia
+    //matriz de incidencia do grafo das cidades
+    NReal** mIncidencia;
+    //tamanho da matriz de incidencia
     int nVertices;     
 
     //matriz do numero de pessoas por cidade
@@ -27,7 +27,7 @@ int main(){
     try{
 
         //le entrada e preenche as matrizes
-        leEntrada(mAdjacencia, pessoas, nVertices);
+        leEntrada(mIncidencia, pessoas, nVertices);
 
     }catch( std::bad_alloc &ba ){
         throw ba;
@@ -36,9 +36,9 @@ int main(){
     //Area de teste:
     //
     //************************************
-    //imprime matriz de adjacencia
-    cout << "\nMatriz de adjacencia:\n";
-    printMatriz(mAdjacencia, nVertices, nVertices);
+    //imprime matriz de incidencia
+    cout << "\nMatriz de incidencia:\n";
+    printMatriz(mIncidencia, nVertices, nVertices);
 
     //imprime vetor de pessoas
     cout << "Vetor de pessoas por cidade:\n";
@@ -48,7 +48,7 @@ int main(){
     //************************************
 
     //inicializa o grafo
-    Grafo grafo(mAdjacencia, pessoas, nVertices);
+    Grafo grafo(mIncidencia, pessoas, nVertices);
 
     //imprime saida
     cout << "Saida:\n";
@@ -60,7 +60,7 @@ int main(){
 }
 
 //le entrada, aloca matrizes e as preenche
-void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
+void leEntrada(NReal**& mIncidencia, int*& pessoas, int& nVertices){
     //numero de estradas
     int nArestas;
     int i, j, k;
@@ -72,8 +72,8 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
         //aloca o vetor pessoas
         pessoas = new int[nVertices];
 
-        //aloca matriz de adjacencia
-        alocaMatriz(mAdjacencia, nVertices, nVertices);
+        //aloca matriz de incidencia
+        alocaMatriz(mIncidencia, nVertices, nVertices);
 
     }catch( std::bad_alloc &ba ){
         throw ba;
@@ -84,17 +84,17 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
         cin >> pessoas[i];
     }
     
-    //preenche a matriz de adjacencia com zero em tudo
+    //preenche a matriz de incidencia com zero em tudo
     for(i=0; i < nVertices * nVertices; i++){
-        mAdjacencia[0][i] = 0;
+        mIncidencia[0][i] = 0;
     }
 
 
-    //preenche a matriz de adjacencia
+    //preenche a matriz de incidencia
     for(k=0; k<nArestas; k++){
         cin >> i;
         cin >> j;
-        cin >> mAdjacencia[i][j];
+        cin >> mIncidencia[i][j];
     }
 }
 
