@@ -23,8 +23,6 @@ Grafo::~Grafo(){
 // Calcula o menor caminho entre todos vértices do grafo e salva na matriz mCaminhos
 void Grafo::calcularCaminhos(){
 
-    cout << "Calculou\n\n";
-
     // Cria variáveis para o algoritmo
     int i,j,k,min1,min2;
 

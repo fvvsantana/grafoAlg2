@@ -1,9 +1,9 @@
 #include <iomanip>
 
-//aloca matriz de tipo T
+// Aloca matriz de tipo T
 template<class T>
     void alocaMatriz(T**& m, int linhas, int colunas){
-        //alocacao:
+        // Alocacao:
         try{
             m = new T*[linhas];
             m[0] = new T[linhas*colunas];
@@ -11,14 +11,14 @@ template<class T>
             throw ba;
         }
 
-        //lincando:
+        // Lincando:
         int i;
         for (i = 1; i < linhas; i++) {
             m[i] = m[0] + i * colunas;
         }
     }
 
-//deleta matriz alocada com a funcao alocaMatriz
+// Deleta matriz alocada com a funcao alocaMatriz
 template<class T>  
     void deletaMatriz(T**& m){ 
         if(m){
@@ -29,7 +29,7 @@ template<class T>
         }
     }
 
-//imprime vetor
+// Imprime um vetor
 template<class T>
     void printVetor(T* &m, int size, int eLength, int ePrecision){
         int i;
@@ -39,7 +39,7 @@ template<class T>
         cout << '\n';
     }
 
-//imprime matriz
+// Imprime uma matriz
 template<class T>
     void printMatriz(T** &m, int rows, int cols, int eLength, int eHeight, int ePrecision){
         int i, j;
@@ -54,7 +54,7 @@ template<class T>
 
     }
 
-//copia a matriz m2 para uma ja alocada matriz m1
+// Copia a matriz m2 para uma já alocada matriz m1
 template<class T, class U>  
     void copiaMatriz(T** &m1, U** m2, int rows, int cols){
         int i, j;

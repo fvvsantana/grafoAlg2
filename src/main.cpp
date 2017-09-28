@@ -6,21 +6,24 @@ using namespace std;
 
 typedef float NReal;
 
-//le entrada, aloca matrizes e as preenche
+// Lê a entrada, aloca as matrizes e as preenche
 void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices);
 
+// Função principal do programa
 int main(){
-    //matriz de adjacencia do grafo das cidades
+
+    // Cria a matriz de adjacencia do grafo de cidades
     NReal** mAdjacencia;
-    //tamanho da matriz de adjacencia
+
+    // Tamanho da matriz de adjacencia
     int nVertices;     
 
-    //matriz do numero de pessoas por cidade
+    // Vetor do numero de pessoas por cidade
     int* pessoas;
 
-    //note que o tamanho do vetor pessoas[] sera nVertices
+    // Note que o tamanho do vetor pessoas[] sera nVertices
 
-    //entrada
+    // Entrada
     cout << "Insira a entrada:\n";
     try{
 
@@ -31,7 +34,7 @@ int main(){
         throw ba;
     }
 
-    //inicializa o grafo
+    // Inicializa o grafo
     Grafo grafo(mAdjacencia, pessoas, nVertices);
 
     //Area de testes:
@@ -42,53 +45,58 @@ int main(){
 
     //grafo.printPessoas();
 
-    //grafo.testaMatrizDeCaminhos();
+    grafo.testaMatrizDeCaminhos();
     
     //************************************
 
 
-    //imprime saida
+    // Imprime as saídas
     cout << "Saida:\n";
     cout << grafo.criterio1() << '\n';
     cout << grafo.criterio2() << '\n';
 
-    //note que o grafo ja desaloca a matriz em seu destrutor
+    // Note que o grafo ja desaloca a matriz em seu destrutor
+    
     return 0;
 }
 
-//le entrada, aloca matrizes e as preenche
+// Lê a entrada, aloca as matrizes e as preenche
 void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
-    //numero de estradas
+
+    // Número de estradas
     int nArestas;
+
+    // Variáveis para o algoritmo
     int i, j, k;
     NReal pesoNovo, pesoAtual;
 
     cin >> nVertices;
     cin >> nArestas;
 
+    // Tenta alocar na memória
     try{
-        //aloca o vetor pessoas
+        // Aloca o vetor pessoas
         pessoas = new int[nVertices];
 
-        //aloca matriz de adjacencia
+        // Aloca matriz de adjacencia
         alocaMatriz(mAdjacencia, nVertices, nVertices);
 
     }catch( std::bad_alloc &ba ){
         throw ba;
     }
 
-    //preenche pessoas[]
+    // Preenche pessoas[]
     for(i=0; i<nVertices; i++){
         cin >> pessoas[i];
     }
     
-    //preenche a matriz de adjacencia com zero em tudo
+    // Preenche a matriz de adjacencia com zero em tudo
     for(i=0; i < nVertices * nVertices; i++){
         mAdjacencia[0][i] = 0;
     }
 
 
-    //preenche a matriz de adjacencia
+    // Preenche a matriz de adjacencia
     for(k=0; k<nArestas; k++){
         cin >> i;
         cin >> j;
@@ -96,16 +104,16 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
 
         pesoAtual = mAdjacencia[i][j];
 
-        //se o peso atual ja foi inicializado
+        // Se o peso atual ja foi inicializado
         if(pesoAtual){
-            //compara os dois pesos e coloca o menor peso
+            // Compara os dois pesos e coloca o menor peso
             if(pesoAtual > pesoNovo){
                 mAdjacencia[i][j] = pesoNovo;
                 mAdjacencia[j][i] = pesoNovo;
             }
-        //se o peso nao foi inicializada
-        }else{
-            //inicializa o peso
+        // Se o peso nao foi inicializado
+        } else{
+            // Inicializa o peso
             mAdjacencia[i][j] = pesoNovo;
             mAdjacencia[j][i] = pesoNovo;
         }

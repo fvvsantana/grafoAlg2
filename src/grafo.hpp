@@ -14,40 +14,39 @@ class Grafo{
         int nVertices;
 
     public:
-        //sobrecarga de construtor
+        // Sobrescreve o construtor
         Grafo(NReal**& mAdjacencia, int*& pessoas, int& nVertices);
 
-        //sobreescreve destrutor
+        // Sobrescreve o destrutor
         ~Grafo();
 
-        /*calcula a matriz de pesos dos caminhos minimos entre os 
-        vertices usando o algoritmo Floyd Marshall*/
+        // Calcula a matriz de menores caminhos
         void calcularCaminhos();
 
-        //Criterio 1
+        // Retorna a cidade escolhida de acordo com o critério 1
         int criterio1();
 
-        //Criterio 2
+        // Retorna a cidade escolhida de acordo com o critério 2
         int criterio2();
 
 
         //------------------------
-        //Funções para teste do programa:
+        // Funções para teste do programa:
 
-        //imprime matriz de caminhos correspondente a matriz de adjacencia
+        // Imprime matriz de caminhos 
         void testaMatrizDeCaminhos();
 
-        //imprime a matriz de adjacencia
+        // Imprime a matriz de adjacencia
         void printMAdjacencia();
 
-        //imprime a vetor de pessoas por cidade
+        // Imprime a vetor de pessoas por cidade
         void printPessoas();
 
         //------------------------
 };
 
 
-//implementacao dos templates
+// Implementacao dos templates
 #include "grafo.cpp"
 
 #endif /* end of include guard: GRAFO_HPP */
