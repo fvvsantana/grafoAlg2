@@ -26,15 +26,14 @@ void Grafo::calcularCaminhos(){
     // Cria variáveis para o algoritmo
     int i,j,k,min1,min2;
 
-    // Deleta a matriz, caso já exista
-    deletaMatriz(mCaminhos);
+    // Aloca a matriz, caso necessário
+    if (!mCaminhos) {
+        try{
+            alocaMatriz(mCaminhos, nVertices, nVertices);
 
-    // Tenta alocar a matriz
-    try{
-        alocaMatriz(mCaminhos, nVertices, nVertices);
-
-    } catch( std::bad_alloc &ba ){
-        throw ba;
+        } catch( std::bad_alloc &ba ){
+            throw ba;
+        }
     }
 
     // Inicia a matriz de menores caminhos
@@ -130,6 +129,7 @@ int Grafo::criterio1(){
     return cidadeMenorDistancia;
 }
 
+
 //Criterio 2:
 // Algoritmo Floyd Marshall adaptado para gerar uma matriz com o vértice anterior a cada passo
 // Essa matriz será utilizada para encontrar o vértice por onde passam mais menores caminhos, ou seja,
@@ -202,24 +202,30 @@ int Grafo::criterio2(){
     else
         deletaMatriz(mCaminhos);
 
-    // A cidade desejada será aquela que aparece mais vezes na matriz de anteriores (moda da matriz)
-    // Para encontrar essa cidade, é criado um vetor que irá contar quantas vezes cada valor aparece
+    // A cidade desejada será aquela que é intermediária para mais caminhos
+    // O vetor vezes irá guardar na posição 'i' quantas vezes a cidade 'i' foi intermediária
     int vezes[nVertices];
 
-    // Só precisa ter nVertices posições, pois esse será o maior valor possível para uma cidade
+    // Inicia todas posições com 0
     for (i=0; i<nVertices; i++) {
         vezes[i] = 0;
     }
 
-    // Conta quantas vezes cada número aparece
+    // Note que nVertices posições são suficientes, pois esse é o maior número possível de uma cidade
+
+    // Conta quantas vezes cada cidade é atravessada
+    int temp;
     for (i=0; i<nVertices; i++) {
-        for (j=0; j<nVertices; j++) {
-            if (matrizAnterior[i][j] != -1)
-                vezes[matrizAnterior[i][j]]++;
+        for (j=i+1; j<nVertices; j++) {
+            temp = j;
+            while (matrizAnterior[i][temp] != -1) {
+                vezes[matrizAnterior[i][temp]]++;
+                temp = matrizAnterior[i][temp];
+            }
         }
     }
 
-    // Acha a maior posição do vetor (que também será a moda da matriz)
+    // Acha a maior posição do vetor (que também será a cidade escolhida)
     int maior = 0;
     for (i=1; i<nVertices; i++) {
         if (vezes[i] > vezes[maior])
