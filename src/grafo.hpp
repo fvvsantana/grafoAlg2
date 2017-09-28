@@ -9,6 +9,7 @@ typedef float NReal;
 class Grafo{
     private:
         NReal** mAdjacencia;
+        NReal** mCaminhos;
         int* pessoas;
         int nVertices;
 
@@ -21,7 +22,7 @@ class Grafo{
 
         /*calcula a matriz de pesos dos caminhos minimos entre os 
         vertices usando o algoritmo Floyd Marshall*/
-        NReal** matrizDeCaminhos();
+        void calcularCaminhos();
 
         //Criterio 1
         int criterio1();
@@ -31,7 +32,7 @@ class Grafo{
 
 
         //------------------------
-        //funcoes de teste:
+        //Funções para teste do programa:
 
         //imprime matriz de caminhos correspondente a matriz de adjacencia
         void testaMatrizDeCaminhos();

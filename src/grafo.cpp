@@ -1,33 +1,39 @@
 #include "utils.hpp"
 
-//sobrecarga de construtor
+// Sobrescreve o construtor
 Grafo::Grafo(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
     this->mAdjacencia = mAdjacencia;
     this->pessoas = pessoas;
     this->nVertices = nVertices;
+    mCaminhos = NULL;
 }
 
-//sobreescreve destrutor
+// Sobrescreve o destrutor
 Grafo::~Grafo(){
-    //deleta vetor pessoas
+    // Deleta vetor pessoas
     if(pessoas) delete pessoas;
     pessoas = NULL;
-    //deleta a matriz de adjacencia
+    // Deleta a matriz de adjacencia
     deletaMatriz(mAdjacencia);
+    // Deleta a matriz de caminhos
+    deletaMatriz(mCaminhos);
 }
 
-        /*calcula a matriz de pesos dos caminhos minimos entre os 
-        vertices usando o algoritmo Floyd Marshall*/
-NReal** Grafo::matrizDeCaminhos(){
-    //Coloque seu algoritmo aqui:
+//Calcular caminhos:
+// Calcula o menor caminho entre todos vértices do grafo e salva na matriz mCaminhos
+void Grafo::calcularCaminhos(){
+
+    cout << "Calculou\n\n";
+
+    // Cria variáveis para o algoritmo
     int i,j,k,min1,min2;
 
-    // Cria a matriz que guardará os menores caminhos
-    NReal **copyM;
+    // Deleta a matriz, caso já exista
+    deletaMatriz(mCaminhos);
 
     // Tenta alocar a matriz
     try{
-        alocaMatriz(copyM, nVertices, nVertices);
+        alocaMatriz(mCaminhos, nVertices, nVertices);
 
     } catch( std::bad_alloc &ba ){
         throw ba;
@@ -36,86 +42,104 @@ NReal** Grafo::matrizDeCaminhos(){
     // Inicia a matriz de menores caminhos
     for (j=0; j<nVertices; j++){
             for (k=0; k<nVertices; k++){
+
                 // Se for um self loop a distância é zero
-                if (j==k) copyM[j][k] = 0;
+                if (j==k) mCaminhos[j][k] = 0;
 
-                // Se existe uma estrada, copia para a de menores caminhos
-                else if (mAdjacencia[j][k]) copyM[j][k] = mAdjacencia[j][k];
+                // Se existe uma estrada, copia para a nova matriz
+                else if (mAdjacencia[j][k]) mCaminhos[j][k] = mAdjacencia[j][k];
 
-                // Se não for nenhum dos casos a distância inicial é infinita
-                else copyM[j][k]= INFINITY;
+                // Se não for nenhum dos casos, a distância inicial é infinita
+                else mCaminhos[j][k]= INFINITY;
             }
     }
 
-    // Algorítimo Floyd Warshall  O(n³)
+    // Algoritmo Floyd Warshall  O(n³)
     for (i=0; i<nVertices; i++){
         for (j=0; j<nVertices; j++){
             for (k=0; k<nVertices; k++){
 
-                //Inicializa min1 com o caminho atual
-                min1 = copyM[j][k];
+                // Inicializa min1 com o caminho atual
+                min1 = mCaminhos[j][k];
 
-                //Inicializa min2 com o caminho passando por i
-                if (copyM[j][i]==INFINITY || copyM[i][k]==INFINITY) min2 = INFINITY;
-                else min2 = copyM[j][i]+copyM[i][k];
+                // Inicializa min2 com o caminho passando por i
+                if (mCaminhos[j][i]==INFINITY || mCaminhos[i][k]==INFINITY) min2 = INFINITY;
+                else min2 = mCaminhos[j][i]+mCaminhos[i][k];
 
-                //Compara a menor distância e atualiza a matriz
-                if (min1==INFINITY) copyM[j][k] = min2;
-                else if (min2==INFINITY) copyM[j][k] = min1;
-                else min1>min2 ? copyM[j][k]=min2 : copyM[j][k]=min1;
+                // Compara a menor distância e atualiza a matriz
+                if (min1==INFINITY) mCaminhos[j][k] = min2;
+                else if (min2==INFINITY) mCaminhos[j][k] = min1;
+                else min1>min2 ? mCaminhos[j][k]=min2 : mCaminhos[j][k]=min1;
             }
         }
     }
-
-    return copyM;
 }
 
 
-//Criterio 1
+//Criterio 1:
+// Encontra a cidade com o menor custo de deslocamento total
+// Para isso, multiplica-se cada coluna da matriz de caminhos pelo número de pessoas daquela cidade
+// A cidade escolhida será aquela com a menor soma da coluna
 int Grafo::criterio1(){
-    
-    //Calcula e armazena a matriz de caminhos
-    NReal** matrizCaminhos = matrizDeCaminhos();
 
-    //Multiplica as distancias pelas numero de pessoas da ciadade de partida
+    // Calcula a matriz de caminhos, caso ainda esteja vazia
+    if (!mCaminhos)
+        calcularCaminhos();
+    
+    // Cria uma cópia da matriz de caminhos
+    NReal** matrizCaminhos;
+    try{
+        alocaMatriz(matrizCaminhos, nVertices, nVertices);
+        copiaMatriz(matrizCaminhos, mCaminhos, nVertices, nVertices);
+
+    } catch( std::bad_alloc &ba ){
+        throw ba;
+    }
+
+    // Multiplica as distancias pelas numero de pessoas da ciadade de partida
    	for (int linha = 0; linha < nVertices; linha++){
    		for(int coluna = 0; coluna < nVertices; coluna++){
    			matrizCaminhos[linha][coluna] = matrizCaminhos[linha][coluna] * pessoas[linha];
    		}
    	}
 
-   	//Vari�veis para armazenar a cidade com menor distancia e o valor da dist�ncia.
+   	// Variáveis para armazenar a cidade com menor distancia e o valor da dist?cia.
    	int cidadeMenorDistancia = 0;
    	NReal menorDistancia = 0;
    	
 
-	//Percorre a matriz de caminhos procurando a cidade de destino com o menor
-	// somat�rio de dist�ncia a percorrer.
+	// Percorre a matriz de caminhos procurando a cidade de destino com o menor
+	//  somatório de distâcias a percorrer
    	for(int coluna = 0; coluna < nVertices; coluna++){
    		for(int linha = 1; linha < nVertices; linha++){
    			matrizCaminhos[0][coluna] = matrizCaminhos[0][coluna] + matrizCaminhos[linha][coluna];
    		}
-   		//Verifica se � a primeira dist�ncia calculada para inicalizar a corretamente
-   		// a varir�vel menorDist�ncia
+   		// Verifica se é a primeira distâcia calculada para inicalizar o menor corretamente
+   		//  a varirável menorDistancia
    		if(coluna == 0){
    			menorDistancia = matrizCaminhos[0][0];
    		}
-   		//Verifica se o a distancia calculada � menor que a anterior.
+   		// Verifica se o a distancia calculada é menor que a anterior
    		else if(menorDistancia > matrizCaminhos[0][coluna]){
    			menorDistancia = matrizCaminhos[0][coluna];
    			cidadeMenorDistancia = coluna;
    		}
    	}
 
+    // Deleta a matriz criada
+    deletaMatriz(matrizCaminhos);
+
     return cidadeMenorDistancia;
 }
 
 //Criterio 2:
-// Algorítimo Floyd Marshall adaptado para gerar uma matriz com o vértice anterior a cada passo
-// Essa matriz será utilizada para encontrar o betweenness centrality
+// Algoritmo Floyd Marshall adaptado para gerar uma matriz com o vértice anterior a cada passo
+// Essa matriz será utilizada para encontrar o vértice por onde passam mais menores caminhos, ou seja,
+//  o vértice com maior valor de Betweenness centrality
 int Grafo::criterio2(){
 
-    int i,j,k,l,min1,min2;
+    // Cria variáveis para o algoritmo
+    int i,j,k,min1,min2;
 
     // Cria a matriz que guardará os menores caminhos
     NReal** matrizCaminhos;
@@ -150,7 +174,7 @@ int Grafo::criterio2(){
             }
     }
 
-    // Algorítimo Floyd Warshall adaptado
+    // Algoritmo Floyd Warshall adaptado
     for (i=0; i<nVertices; i++){
         for (j=0; j<nVertices; j++){
             for (k=0; k<nVertices; k++){
@@ -173,11 +197,18 @@ int Grafo::criterio2(){
         }
     }
 
+    // Caso a matriz de caminhos do grafo ainda não tenha sido calculada, aproveita o resultado
+    //  deste algoritmo e salva para uso futuro
+    if (!mCaminhos)
+        mCaminhos = matrizCaminhos;
+    else
+        deletaMatriz(mCaminhos);
+
     // A cidade desejada será aquela que aparece mais vezes na matriz de anteriores (moda da matriz)
-    
-    // Cria e inicia um vetor que irá contar quantas vezes cada valor aparece
-    // > Só precisa ter nVertices posições, pois esse será o maior número no nosso caso
+    // Para encontrar essa cidade, é criado um vetor que irá contar quantas vezes cada valor aparece
     int vezes[nVertices];
+
+    // Só precisa ter nVertices posições, pois esse será o maior valor possível para uma cidade
     for (i=0; i<nVertices; i++) {
         vezes[i] = 0;
     }
@@ -197,40 +228,46 @@ int Grafo::criterio2(){
             maior = i;
     }
 
+    // Deleta a matriz criada
+    deletaMatriz(matrizAnterior);
+
     return maior;
 }
 
 
 
 //------------------------
-//funcoes de teste:
+// Funções para teste do programa:
 
-//imprime matriz de caminhos correspondente a matriz de adjacencia
+// Imprime a matriz de caminhos
 void Grafo::testaMatrizDeCaminhos(){
     cout << "-------------------\n";
     cout << "Teste\nMatriz de caminhos:\n";
-    //pega matriz de caminhos
-    NReal** aux = matrizDeCaminhos();
-    //imprime matriz
-    printMatriz(aux, nVertices, nVertices);
-    //deleta matriz
-    deletaMatriz(aux);
+
+    // Verifica se ela já foi calculada
+    if (!mCaminhos)
+        calcularCaminhos();
+
+    // Imprime a matriz
+    printMatriz(mCaminhos, nVertices, nVertices);
     cout << "-------------------\n";
 }
 
 
-//imprime a matriz de adjacencia
+// Imprime a matriz de adjacencia
 void Grafo::printMAdjacencia(){
     cout << "-------------------\n";
     cout << "Teste\nMatriz de adjacencia:\n";
+
     printMatriz(mAdjacencia, nVertices, nVertices);
     cout << "-------------------\n";
 }
 
-//imprime a vetor de pessoas por cidade
+// Imprime a vetor de pessoas por cidade
 void Grafo::printPessoas(){
     cout << "-------------------\n";
     cout << "Teste\nVetor de pessoas por cidade:\n";
+
     printVetor(pessoas, nVertices);
     cout << "-------------------\n";
 }
