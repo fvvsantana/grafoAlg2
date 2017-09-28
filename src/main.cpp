@@ -21,42 +21,24 @@ int main(){
     // Vetor do numero de pessoas por cidade
     int* pessoas;
 
-    // Note que o tamanho do vetor pessoas[] sera nVertices
-
-    // Entrada
-    cout << "Insira a entrada:\n";
+    // Lê a entrada e preenche as matrizes
     try{
 
-        //le entrada e preenche as matrizes
         leEntrada(mAdjacencia, pessoas, nVertices);
 
-    }catch( std::bad_alloc &ba ){
+    } catch( std::bad_alloc &ba ){
         throw ba;
     }
 
     // Inicializa o grafo
     Grafo grafo(mAdjacencia, pessoas, nVertices);
 
-    //Area de testes:
-    //
-    //************************************
-
-    //grafo.printMAdjacencia();
-
-    //grafo.printPessoas();
-
-    grafo.testaMatrizDeCaminhos();
-    
-    //************************************
-
-
-    // Imprime as saídas
-    cout << "Saida:\n";
+    // Calcula e imprime as saídas
     cout << grafo.criterio1() << '\n';
     cout << grafo.criterio2() << '\n';
 
     // Note que o grafo ja desaloca a matriz em seu destrutor
-    
+
     return 0;
 }
 

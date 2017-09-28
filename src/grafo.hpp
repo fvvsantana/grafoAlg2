@@ -29,22 +29,7 @@ class Grafo{
         // Retorna a cidade escolhida de acordo com o critério 2
         int criterio2();
 
-
-        //------------------------
-        // Funções para teste do programa:
-
-        // Imprime matriz de caminhos 
-        void testaMatrizDeCaminhos();
-
-        // Imprime a matriz de adjacencia
-        void printMAdjacencia();
-
-        // Imprime a vetor de pessoas por cidade
-        void printPessoas();
-
-        //------------------------
 };
-
 
 // Implementacao dos templates
 #include "grafo.cpp"
