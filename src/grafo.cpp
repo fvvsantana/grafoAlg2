@@ -207,13 +207,13 @@ int Grafo::criterio2(){
     int vezes[nVertices];
 
     // Inicia todas posições com 0
+    // Note que nVertices posições são suficientes, pois esse é o maior número possível de uma cidade
     for (i=0; i<nVertices; i++) {
         vezes[i] = 0;
     }
 
-    // Note que nVertices posições são suficientes, pois esse é o maior número possível de uma cidade
-
     // Conta quantas vezes cada cidade é atravessada
+    // Note que só é necessário calcular em metade da matriz, já que ela é simétrica
     int temp;
     for (i=0; i<nVertices; i++) {
         for (j=i+1; j<nVertices; j++) {
