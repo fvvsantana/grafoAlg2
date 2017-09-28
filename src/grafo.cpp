@@ -1,3 +1,6 @@
+#include <cstddef>
+#include <new>
+#include "grafo.hpp"
 #include "utils.hpp"
 
 // Sobrescreve o construtor
@@ -82,7 +85,7 @@ int Grafo::criterio1(){
     // Calcula a matriz de caminhos, caso ainda esteja vazia
     if (!mCaminhos)
         calcularCaminhos();
-    
+
     // Cria uma cópia da matriz de caminhos
     NReal** matrizCaminhos;
     try{
@@ -103,7 +106,7 @@ int Grafo::criterio1(){
    	// Variáveis para armazenar a cidade com menor distancia e o valor da dist?cia.
    	int cidadeMenorDistancia = 0;
    	NReal menorDistancia = 0;
-   	
+
 
 	// Percorre a matriz de caminhos procurando a cidade de destino com o menor
 	//  somatório de distâcias a percorrer
@@ -144,7 +147,7 @@ int Grafo::criterio2(){
 
     // Cria uma matriz para guardar o ponto intermediário entre dois vértices
     int** matrizAnterior;
-    
+
     // Tenta alocar as matrizes
     try{
         alocaMatriz(matrizCaminhos, nVertices, nVertices);

@@ -31,7 +31,4 @@ class Grafo{
 
 };
 
-// Implementacao dos templates
-#include "grafo.cpp"
-
 #endif /* end of include guard: GRAFO_HPP */

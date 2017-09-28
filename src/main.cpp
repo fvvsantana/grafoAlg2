@@ -16,7 +16,7 @@ int main(){
     NReal** mAdjacencia;
 
     // Tamanho da matriz de adjacencia
-    int nVertices;     
+    int nVertices;
 
     // Vetor do numero de pessoas por cidade
     int* pessoas;
@@ -71,7 +71,7 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
     for(i=0; i<nVertices; i++){
         cin >> pessoas[i];
     }
-    
+
     // Preenche a matriz de adjacencia com zero em tudo
     for(i=0; i < nVertices * nVertices; i++){
         mAdjacencia[0][i] = 0;
@@ -101,4 +101,3 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
         }
     }
 }
-

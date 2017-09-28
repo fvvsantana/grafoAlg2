@@ -1,4 +1,5 @@
 #include <iomanip>
+#include <iostream>
 
 // Aloca matriz de tipo T
 template<class T>
@@ -19,12 +20,12 @@ template<class T>
     }
 
 // Deleta matriz alocada com a funcao alocaMatriz
-template<class T>  
-    void deletaMatriz(T**& m){ 
+template<class T>
+    void deletaMatriz(T**& m){
         if(m){
             if(m[0]) delete[] m[0]; //deleta o bloco maior, do tipo T
             m[0] = NULL;
-            delete[] m; //deleta o vetor de ponteiros 
+            delete[] m; //deleta o vetor de ponteiros
             m = NULL;
         }
     }
@@ -55,12 +56,12 @@ template<class T>
     }
 
 // Copia a matriz m2 para uma já alocada matriz m1
-template<class T, class U>  
+template<class T, class U>
     void copiaMatriz(T** &m1, U** m2, int rows, int cols){
         int i, j;
         for (i = 0; i < rows; i++) {
             for (j = 0; j < cols; j++) {
                 m1[i][j] = m2[i][j];
-            }   
-        }   
-    }   
+            }
+        }
+    }
