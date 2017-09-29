@@ -22,7 +22,6 @@ int main(){
     int* pessoas;
 
     // Lê a entrada e preenche as matrizes
-    cout << "Insira a entrada do grafo ja formatada:\n";
     try{
 
         leEntrada(mAdjacencia, pessoas, nVertices);
@@ -35,9 +34,10 @@ int main(){
     Grafo grafo(mAdjacencia, pessoas, nVertices);
 
     // Calcula e imprime as saídas
-    cout << "\nSaida pedida:\n";
-    cout << grafo.criterio1() << '\n';
-    cout << grafo.criterio2() << '\n';
+    cout << "\nResultado do Criterio 1:\n";
+    cout << grafo.criterio1() << endl;
+    cout << "\nResultado do Criterio 2:\n";
+    cout << grafo.criterio2() << endl;
 
     // Note que o grafo ja desaloca a matriz em seu destrutor
 
@@ -54,8 +54,19 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
     int i, j, k;
     NReal pesoNovo, pesoAtual;
 
+    // Pergunta o número de cidades e estradas
+    cout << "Digite o numero de cidades e a quantidade de estradas:\n";
     cin >> nVertices;
     cin >> nArestas;
+
+    // verifica se a entrada é um int e se está dentro dos valores esperados
+    while (cin.fail() || nVertices < 2 || nVertices > 50 || nArestas < 1 || nArestas > (nVertices*nVertices)) {
+        cin.clear();
+        cin.ignore(256,'\n');
+    	cout << "Entrada invalida, insira novamente\n";
+    	cin >> nVertices;
+    	cin >> nArestas;
+    }
 
     // Tenta alocar na memória
     try{
@@ -69,22 +80,42 @@ void leEntrada(NReal**& mAdjacencia, int*& pessoas, int& nVertices){
         throw ba;
     }
 
-    // Preenche pessoas[]
+    // Preenche o vetor pessoas
+    cout << "Digite o numero de pessoas por cidade:\n";
     for(i=0; i<nVertices; i++){
         cin >> pessoas[i];
+
+        // Verifica se a entrada está correta
+        while (cin.fail() || pessoas[i] < 0 || pessoas[i] > 50) {
+            cin.clear();
+            cin.ignore(256,'\n');
+            cout << "Quantidade invalida, insira novamente\n";
+            cin >> pessoas[i];
+        }
     }
 
-    // Preenche a matriz de adjacencia com zero em tudo
+    // Preenche a matriz de adjacencia com zero em todas posições
     for(i=0; i < nVertices * nVertices; i++){
         mAdjacencia[0][i] = 0;
     }
 
 
-    // Preenche a matriz de adjacencia
+    // Preenche a matriz de adjacencias
+    cout << "Digite as arestas e suas distancias:\n";
     for(k=0; k<nArestas; k++){
         cin >> i;
         cin >> j;
         cin >> pesoNovo;
+
+        // Verifica se a entrada está correta
+        while (cin.fail() || i < 0 || i > nVertices || j < 0 || j > nVertices || pesoNovo <= 0 || pesoNovo > 100) {
+            cin.clear();
+            cin.ignore(256,'\n');
+            cout << "Valores invalidos, insira novamente\n";
+            cin >> i;
+            cin >> j;
+            cin >> pesoNovo;
+        }
 
         pesoAtual = mAdjacencia[i][j];
 
