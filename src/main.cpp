@@ -22,6 +22,7 @@ int main(){
     int* pessoas;
 
     // Lê a entrada e preenche as matrizes
+    cout << "Insira a entrada do grafo ja formatada:\n";
     try{
 
         leEntrada(mAdjacencia, pessoas, nVertices);
@@ -34,6 +35,7 @@ int main(){
     Grafo grafo(mAdjacencia, pessoas, nVertices);
 
     // Calcula e imprime as saídas
+    cout << "\nSaida pedida:\n";
     cout << grafo.criterio1() << '\n';
     cout << grafo.criterio2() << '\n';
 
