@@ -1,3 +1,15 @@
+/*
+Código realizado para o Trabalho 1 da disciplina SCC0603 - Algoritmos e Estruturas de Dados II
+Professora Elaine Parros Machado de Sousa
+
+Membros do grupo:
+Adilson Vital Junior - 9278160
+César Augusto Lima - 9771525
+Flavio Vinicius Vieira Santana - 9866552
+Leonardo Carneiro Feltran - 9807430
+
+*/
+
 #include <iostream>
 #include "utils.hpp"
 #include "grafo.hpp"
